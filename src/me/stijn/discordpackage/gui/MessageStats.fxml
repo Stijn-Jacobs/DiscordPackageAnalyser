@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.chart.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.stijn.discordpackage.controllers.MessageStatsController">
+
+<AnchorPane fx:id="pane" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.stijn.discordpackage.controllers.MessageStatsController">
    <children>
-      <AreaChart layoutX="157.0" layoutY="25.0">
+      <StackedAreaChart layoutX="473.0" layoutY="25.0" prefHeight="161.0" prefWidth="327.0">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <NumberAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis side="LEFT" />
         </yAxis>
-      </AreaChart>
+      </StackedAreaChart>
+      <TableView fx:id="mostusedchats" layoutX="14.0" layoutY="14.0" prefHeight="284.0" prefWidth="373.0">
+        <columns>
+          <TableColumn fx:id="sender" editable="false" prefWidth="229.0" sortable="false" text="Channel" />
+          <TableColumn fx:id="count" editable="false" minWidth="0.0" prefWidth="143.0" text="Messages" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
