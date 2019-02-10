@@ -9,24 +9,28 @@ public class Conversation {
 	SimpleIntegerProperty count;
 	
 	public Conversation(String sender, Integer count) {
-		this.sender= new SimpleStringProperty(sender);
+		this.sender = new SimpleStringProperty(sender);
 		this.count = new SimpleIntegerProperty(count);
 	}
 	
 	public String getSender() {
 		return sender.get();
 	}
-	
+
 	public void setSender(String sender) {
-		this.sender.set(sender);;
+		this.sender.set(sender);
 	}
 
-	public void setCount(int count) {
-		this.count.set(count);
-	}
-
-	public int getCount() {
+	public Integer getCount() {
 		return count.get();
 	}
 
+	public void setCount(Integer count) {
+		this.count.set(count);
+	}
+
+	@Override
+	public String toString() {
+		return sender.get() + " : " + count.get();
+	}
 }

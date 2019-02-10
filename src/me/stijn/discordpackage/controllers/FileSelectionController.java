@@ -3,8 +3,11 @@ package me.stijn.discordpackage.controllers;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -14,9 +17,6 @@ import me.stijn.discordpackage.DataAnalyser;
 import me.stijn.discordpackage.Main;
 
 public class FileSelectionController extends AnchorPane {
-	@FXML
-	private AnchorPane pane;
-
 	@FXML
 	private Label status;
 
@@ -30,7 +30,7 @@ public class FileSelectionController extends AnchorPane {
 		}
 	}
 
-	public void onLoadButton() throws IOException, ParseException {
+	public void onLoadButton() throws IOException, ParseException, InterruptedException {
 		if (!DataAnalyser.analyseMessages())
 			return;
 
@@ -49,10 +49,6 @@ public class FileSelectionController extends AnchorPane {
 	public void setStatus(String s) {
 		s = s.replace(" ", "   ");
 		status.setText("Status: " + s);
-	}
-	
-	public AnchorPane getPane() {
-		return pane;
 	}
 
 }

@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="C:/Users/Stijn/Desktop/docs/Java libs/fxgraphics2d-1.8-snapshot.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Stijn/Desktop/docs/Java libs/orsoncharts-1.7.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Stijn/Desktop/docs/Java libs/orson-charts-fx-1.0.jar"/>
+	<classpathentry kind="lib" path="/extfx/target/classes"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

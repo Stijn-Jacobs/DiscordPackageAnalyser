@@ -8,7 +8,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import me.stijn.discordpackage.GUIManager;
 
-public class ParentController extends BorderPane {
+public class ParentView extends BorderPane {
 
 	@FXML
 	private Button loadview;

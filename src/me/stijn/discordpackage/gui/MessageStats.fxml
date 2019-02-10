@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import extfx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.chart.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane fx:id="pane" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.stijn.discordpackage.controllers.MessageStatsController">
    <children>
-      <StackedAreaChart layoutX="473.0" layoutY="25.0" prefHeight="161.0" prefWidth="327.0">
-        <xAxis>
-          <NumberAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
-      </StackedAreaChart>
-      <TableView fx:id="mostusedchats" layoutX="14.0" layoutY="14.0" prefHeight="284.0" prefWidth="373.0">
+      <FlowPane prefHeight="200.0" prefWidth="200.0" />
+      <TableView fx:id="mostusedchats" editable="true" layoutX="14.0" layoutY="14.0" prefHeight="284.0" prefWidth="373.0">
         <columns>
           <TableColumn fx:id="sender" editable="false" prefWidth="229.0" sortable="false" text="Channel" />
           <TableColumn fx:id="count" editable="false" minWidth="0.0" prefWidth="143.0" text="Messages" />
         </columns>
       </TableView>
+      <LineChart fx:id="daychart" createSymbols="false" layoutX="403.0" layoutY="14.0" legendVisible="false" prefHeight="284.0" prefWidth="393.0" title="Usage by hour">
+        <xAxis>
+          <CategoryAxis autoRanging="false" endMargin="0.0" gapStartAndEnd="false" side="BOTTOM" startMargin="0.0" tickLabelGap="0.0" tickLabelRotation="-60.0" fx:id="xaxis" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="Amount of messages" prefHeight="222.0" prefWidth="44.0" side="LEFT" />
+        </yAxis>
+      </LineChart>
    </children>
 </AnchorPane>

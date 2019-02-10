@@ -14,14 +14,13 @@
             <Font name="Bebas" size="16.0" />
          </font>
       </Button>
-      <ProgressBar fx:id="progressbar" layoutX="300.0" layoutY="358.0" prefWidth="200.0" progress="0.0" />
-      <Button fx:id="openfile" layoutX="320.0" layoutY="152.0" mnemonicParsing="false" onAction="#onFileOpenButton" prefHeight="66.0" prefWidth="160.0" text="Open   file">
+      <Button fx:id="openfile" layoutX="320.0" layoutY="87.0" mnemonicParsing="false" onAction="#onFileOpenButton" prefHeight="66.0" prefWidth="160.0" text="Open   file">
          <font>
             <Font name="Bebas" size="28.0" />
          </font>
       </Button>
-      <TextField fx:id="locationurl" editable="false" layoutX="218.0" layoutY="247.0" prefHeight="25.0" prefWidth="365.0" promptText="Location" />
-      <Label fx:id="status" alignment="CENTER" contentDisplay="CENTER" layoutX="355.0" layoutY="308.0" text="Status: Not started" textAlignment="CENTER">
+      <TextField fx:id="locationurl" editable="false" layoutX="218.0" layoutY="181.0" prefHeight="25.0" prefWidth="365.0" promptText="Location" />
+      <Label fx:id="status" alignment="CENTER" contentDisplay="CENTER" layoutX="206.0" layoutY="348.0" prefHeight="13.0" prefWidth="388.0" text="Status: Not started" textAlignment="CENTER">
          <font>
             <Font name="Bebas" size="12.0" />
          </font>
