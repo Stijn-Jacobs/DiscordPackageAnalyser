@@ -1,28 +1,36 @@
 package me.stijn.discordpackage.controllers;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
 
-import javafx.collections.FXCollections;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import me.stijn.discordpackage.DataAnalyser;
 import me.stijn.discordpackage.Main;
 
 public class FileSelectionController extends AnchorPane {
+	
+	private File expletiveFile;
+	
 	@FXML
 	private Label status;
 
 	@FXML
 	private TextField locationurl;
+	
+	@FXML
+	private Button customExpletiveButton;
 
+	@FXML
+	private CheckBox useCustomExpletive;
+	
 	@FXML
 	public void initialize() {
 		if (Main.PACKAGE_LOCATION != null && Main.PACKAGE_LOCATION != "") {
@@ -30,10 +38,29 @@ public class FileSelectionController extends AnchorPane {
 		}
 	}
 
-	public void onLoadButton() throws IOException, ParseException, InterruptedException {
+	public void onLoadButton() throws InterruptedException {
+		if (expletiveFile == null) { //disable custom expletive if no file has been set
+			customExpletiveButton.setDisable(true);
+			useCustomExpletive.setSelected(false);
+		}
 		if (!DataAnalyser.analyseMessages())
 			return;
-
+	}
+	
+	public void onCustomExpletiveCheck() {
+		customExpletiveButton.setDisable(!useCustomExpletive.isSelected());
+	}
+	
+	public void onCustomExpletiveButton() { //select cusetom expletive file
+		if (!useCustomExpletive.isSelected()) 
+			return;
+		
+		FileChooser chooser = new FileChooser();
+		chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+		File selected = chooser.showOpenDialog(null);
+		if (selected != null) {
+			expletiveFile = selected;
+		}
 	}
 
 	public void onFileOpenButton() {
@@ -49,6 +76,10 @@ public class FileSelectionController extends AnchorPane {
 	public void setStatus(String s) {
 		s = s.replace(" ", "   ");
 		status.setText("Status: " + s);
+	}
+	
+	public File getExpletiveFile() {
+		return expletiveFile;
 	}
 
 }

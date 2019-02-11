@@ -10,13 +10,15 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import me.stijn.discordpackage.DataAnalyser;
 import me.stijn.discordpackage.TimeUtils;
-import me.stijn.discordpackage.objects.Conversation;
+import me.stijn.discordpackage.objects.tableview.Conversation;
+import me.stijn.discordpackage.objects.tableview.MostUsedWordEntry;
 
 public class MessageStatsController extends AnchorPane {
 
@@ -24,29 +26,50 @@ public class MessageStatsController extends AnchorPane {
 	public TableView<Conversation> mostusedchats;
 
 	@FXML
-	public TableColumn<Conversation, String> sender;
+	public TableColumn<Conversation, String> mostSentChannelSender;
 
 	@FXML
-	public TableColumn<Conversation, Integer> count;
+	public TableColumn<Conversation, Integer> mostSentChannelCount;
 	 
 	@FXML
 	public LineChart daychart;
 	
 	@FXML
 	public CategoryAxis xaxis;
+	
+	@FXML
+	public TableView<MostUsedWordEntry> mostUsedWords;
 
 	@FXML
+	public TableColumn<MostUsedWordEntry, String> mostUsedWordsWord;
+
+	@FXML
+	public TableColumn<MostUsedWordEntry, Integer> mostUsedWordsCount;;
+	
+	@FXML
 	public void initialize() {
-		System.out.println("initi");
-		sender.setCellValueFactory(new PropertyValueFactory<>("sender"));
-		count.setCellValueFactory(new PropertyValueFactory<>("count"));
-		mostusedchats.setPlaceholder(new Label("No messages found"));
+		mostSentChannelSender.setCellValueFactory(new PropertyValueFactory<>("value"));
+		mostSentChannelCount.setCellValueFactory(new PropertyValueFactory<>("count"));
 		
+		mostUsedWordsWord.setCellValueFactory(new PropertyValueFactory<>("value"));
+		mostUsedWordsCount.setCellValueFactory(new PropertyValueFactory<>("count"));
+		
+		mostusedchats.setPlaceholder(new Label("No messages found"));
+		mostUsedWords.setPlaceholder(new Label("No words found"));
 		xaxis.setCategories(FXCollections.observableArrayList(TimeUtils.getTimeInADay(10)));  
+		
 	}
 	
-	public void addMostUsedChats(ArrayList<Conversation> l) {
-		mostusedchats.getItems().addAll(FXCollections.observableArrayList(l));
+	public void setMostUsedChats(ArrayList<Conversation> l) {
+		mostusedchats.getItems().setAll(FXCollections.observableArrayList(l));
+		mostSentChannelCount.setSortType(TableColumn.SortType.DESCENDING);
+		mostusedchats.getSortOrder().add(mostSentChannelCount);
+	}
+	
+	public void setMostUsedWords(ArrayList<MostUsedWordEntry> l) {
+		mostUsedWords.getItems().setAll(FXCollections.observableArrayList(l));
+		mostUsedWordsCount.setSortType(TableColumn.SortType.DESCENDING);
+		mostUsedWords.getSortOrder().add(mostUsedWordsCount);
 	}
 	
 	public void setDayChart(Series s) {

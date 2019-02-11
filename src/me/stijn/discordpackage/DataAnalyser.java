@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -12,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.csv.CSVFormat;
@@ -22,41 +24,80 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
-import javafx.collections.FXCollections;
 import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Data;
-import javafx.scene.chart.XYChart.Series;
-import javafx.scene.layout.Region;
-import javafx.scene.shape.Circle;
 import me.stijn.discordpackage.objects.Channel;
 import me.stijn.discordpackage.objects.ChatHistory;
-import me.stijn.discordpackage.objects.Conversation;
 import me.stijn.discordpackage.objects.Message;
+import me.stijn.discordpackage.objects.tableview.Conversation;
+import me.stijn.discordpackage.objects.tableview.MostUsedWordEntry;
 
 public class DataAnalyser {
 
 	public static ArrayList<ChatHistory> chats = new ArrayList<ChatHistory>(); // stores all chat messages //TODO MAYBE REMOVE
 
-	public static boolean analyseMessages() throws IOException, ParseException, InterruptedException {
+	public static boolean analyseMessages() throws InterruptedException {
 		File map = new File(Main.PACKAGE_LOCATION + "\\messages\\");
 		ControllerManager.getParentController().getMessageStatsButton().setDisable(true);
-		if (!map.isDirectory()) { //if map does not exists
+		if (!map.isDirectory()) { // if map does not exists
 			ControllerManager.getFileSelectionController().setStatus("NO DISCORD PACKAGE FOUND");
 			return false;
 		}
-		
+
 		chats.clear();
 		ControllerManager.getFileSelectionController().setStatus("LOADING MESSAGES");
 
-		ArrayList<Date> dates = loadMostUsedChats(map); //dates includes all message dates
-		loadDayChart(dates);
-			
+		Thread thrd = new Thread() {
+			public void run() {
+				try {
+					ArrayList<Date> dates = loadMostUsedChats(map);
+					loadDayChart(dates);
+					loadMostUsedWord();
+
+				} catch (ParseException | IOException e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		thrd.start();
+		thrd.join();
+
 		ControllerManager.getFileSelectionController().setStatus("LOADED MESSAGES");
 		ControllerManager.getParentController().getMessageStatsButton().setDisable(false);
-		System.out.println(ControllerManager.getParentController().getChildren());
 		return true;
 	}
-	
+
+	private static void loadMostUsedWord() throws IOException {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		File f = ControllerManager.getFileSelectionController().getExpletiveFile();
+
+		List<String> words = null;
+		if (f != null)
+			words = Files.readAllLines(ControllerManager.getFileSelectionController().getExpletiveFile().toPath(), Charset.defaultCharset());
+
+		for (ChatHistory c : chats) {
+			for (Message m : c.getList()) {
+				String[] split = m.getMsg().split(" ");
+				for (String s : split) {
+					if (f != null && words.contains(s) || s.equals(""))
+						continue; // dont add if on expletive list or empty string
+
+					if (map.containsKey(s))
+						map.put(s, map.get(s) + 1);
+					else
+						map.put(s, 1);
+				}
+			}
+		}
+		ArrayList<MostUsedWordEntry> list = new ArrayList<MostUsedWordEntry>();
+
+		for (String s : map.keySet()) {
+			if (map.get(s) > 5) //only add words with at least 5 uses
+				list.add(new MostUsedWordEntry(s, map.get(s)));
+		}
+
+		ControllerManager.getMessageStatsController().setMostUsedWords(list);
+	}
+
 	private static void loadDayChart(ArrayList<Date> dates) {
 		HashMap<String, Integer> count = new HashMap<String, Integer>();
 		for (String s : TimeUtils.getTimeInADay(10)) { // fill temp hashmap
@@ -68,18 +109,17 @@ public class DataAnalyser {
 			count.put(format.format(input), count.get(format.format(input)) + 1);
 		}
 		dates.clear();
-		
+
 		XYChart.Series series = new XYChart.Series();
 		for (String d : count.keySet()) {
 			series.getData().add(new XYChart.Data(d, count.get(d)));
 		}
-		//ControllerManager.getMessageStatsController().getDayChart().getData().add(series);
 		ControllerManager.getMessageStatsController().setDayChart(series);
 	}
-	
-	private static ArrayList<Date> loadMostUsedChats(File map) throws ParseException, IOException{
-		ArrayList<Conversation> list = new ArrayList<Conversation>(); //entries of the table view
-		ArrayList<Date> dates = new ArrayList<Date>(); //all the dates of all the messages
+
+	private static ArrayList<Date> loadMostUsedChats(File map) throws ParseException, IOException {
+		ArrayList<Conversation> list = new ArrayList<Conversation>(); // entries of the table view
+		ArrayList<Date> dates = new ArrayList<Date>(); // all the dates of all the messages
 
 		GsonBuilder gsonb = new GsonBuilder();
 		Gson gson = gsonb.create();
@@ -103,18 +143,15 @@ public class DataAnalyser {
 
 			JsonReader reader = new JsonReader(new InputStreamReader(new FileInputStream(new File(f.getAbsolutePath() + "\\channel.json")), "UTF-8"));
 			Channel chan = gson.fromJson(reader, Channel.class);
-			if (chan.getGuild() != null && chan.getGuild().getName() != null && chan.getName() != null)
-				list.add(new Conversation(chan.getGuild().getName() + " : " + chan.getName(), msges.size()));
-			else
-				list.add(new Conversation(chan.getId() + "", msges.size()));
-			chats.add(new ChatHistory(chan, msges)); //add all messages so they can be accessed again for other shit
+			if (msges.size() > 3) { //only add to most used channels when having more than 3 messages
+				if (chan.getGuild() != null && chan.getGuild().getName() != null && chan.getName() != null)
+					list.add(new Conversation(chan.getGuild().getName() + " : " + chan.getName(), msges.size()));
+				else
+					list.add(new Conversation(chan.getId() + "", msges.size()));
+			}
+			chats.add(new ChatHistory(chan, msges)); // add all messages so they can be accessed again for other shit
 		}
-		//ControllerManager.getMessageStatsController().getMostUsedChats().getItems().add(new Conversation("aasdfasdf", 50));
-		ControllerManager.getMessageStatsController().addMostUsedChats(list);
-		//System.out.println(ControllerManager.getMessageStatsController().getMostUsedChats().getItems());
-		//ControllerManager.getMessageStatsController().getMostUsedChats().getItems().add(FXCollections.observableArrayList(list));
-
-		//ControllerManager.getMessageStatsController().getMostUsedChats().setItems(FXCollections.observableArrayList(list)); //set listview
+		ControllerManager.getMessageStatsController().setMostUsedChats(list);
 		return dates;
 	}
 

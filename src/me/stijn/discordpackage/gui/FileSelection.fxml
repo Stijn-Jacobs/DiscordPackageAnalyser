@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.stijn.discordpackage.controllers.FileSelectionController">
+<AnchorPane prefHeight="540.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.stijn.discordpackage.controllers.FileSelectionController">
    <children>
-      <Button fx:id="load" layoutX="344.0" layoutY="391.0" mnemonicParsing="false" onAction="#onLoadButton" prefHeight="39.0" prefWidth="113.0" text="Load">
+      <Button fx:id="load" layoutX="344.0" layoutY="457.0" mnemonicParsing="false" onAction="#onLoadButton" prefHeight="39.0" prefWidth="113.0" text="Load">
          <font>
             <Font name="Bebas" size="16.0" />
          </font>
@@ -20,10 +20,12 @@
          </font>
       </Button>
       <TextField fx:id="locationurl" editable="false" layoutX="218.0" layoutY="181.0" prefHeight="25.0" prefWidth="365.0" promptText="Location" />
-      <Label fx:id="status" alignment="CENTER" contentDisplay="CENTER" layoutX="206.0" layoutY="348.0" prefHeight="13.0" prefWidth="388.0" text="Status: Not started" textAlignment="CENTER">
+      <Label fx:id="status" alignment="CENTER" contentDisplay="CENTER" layoutX="206.0" layoutY="414.0" prefHeight="13.0" prefWidth="388.0" text="Status: Not started" textAlignment="CENTER">
          <font>
             <Font name="Bebas" size="12.0" />
          </font>
       </Label>
+      <CheckBox fx:id="useCustomExpletive" layoutX="341.0" layoutY="270.0" mnemonicParsing="false" onAction="#onCustomExpletiveCheck" text="Use expletive filter" />
+      <Button fx:id="customExpletiveButton" disable="true" layoutX="324.0" layoutY="296.0" mnemonicParsing="false" onAction="#onCustomExpletiveButton" prefHeight="25.0" prefWidth="153.0" text="Set custom expletive list" />
    </children>
 </AnchorPane>

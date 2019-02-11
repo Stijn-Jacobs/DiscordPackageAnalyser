@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import me.stijn.discordpackage.controllers.ParentView;
 
@@ -25,6 +26,7 @@ public class Main extends Application{
 		  ControllerManager.map.put(loader.getController().getClass().getSimpleName(), loader.getController());
 		  Scene sc = new Scene(main);
 		  sc.getStylesheets().add("me/stijn/discordpackage/gui/css/main.css");
+		  Font.loadFont(Main.class.getResource("font/BEBAS.ttf").toExternalForm(), 10);
 		  stage.setScene(sc);
 	      GUIManager.switchView("FileSelection");
 	      stage.show();
