@@ -12,8 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-import me.stijn.discordpackage.DataAnalyser;
 import me.stijn.discordpackage.Main;
+import me.stijn.discordpackage.analyse.DataAnalyser;
 
 public class FileSelectionController extends AnchorPane {
 	
@@ -43,7 +43,7 @@ public class FileSelectionController extends AnchorPane {
 			customExpletiveButton.setDisable(true);
 			useCustomExpletive.setSelected(false);
 		}
-		if (!DataAnalyser.analyseMessages())
+		if (!DataAnalyser.analyse())
 			return;
 	}
 	

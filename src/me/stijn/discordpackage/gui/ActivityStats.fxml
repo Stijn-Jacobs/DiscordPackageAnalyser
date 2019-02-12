@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import extfx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="540.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.stijn.discordpackage.controllers.ActivityStatsController">
+   <children>
+      <LineChart fx:id="dayChart" createSymbols="false" layoutX="403.0" layoutY="14.0" legendVisible="false" prefHeight="275.0" prefWidth="393.0" title="Usage by hour">
+        <xAxis>
+          <CategoryAxis autoRanging="false" endMargin="0.0" gapStartAndEnd="false" side="BOTTOM" startMargin="0.0" tickLabelGap="0.0" tickLabelRotation="-60.0" fx:id="xaxis" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="Amount of logins" prefHeight="222.0" prefWidth="46.0" side="LEFT" />
+        </yAxis>
+      </LineChart>
+      <PieChart fx:id="clientPie" focusTraversable="true" labelLineLength="10.0" layoutX="463.0" layoutY="286.0" prefHeight="252.0" prefWidth="323.0" title="Client usage" />
+   </children>
+</AnchorPane>

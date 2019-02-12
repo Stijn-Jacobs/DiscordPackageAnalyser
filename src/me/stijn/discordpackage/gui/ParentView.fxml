@@ -11,8 +11,10 @@
    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-          <Button fx:id="loadview" mnemonicParsing="false" onAction="#onLoadFileViewButton" text="Load file" />
-            <Button fx:id="messagestats" mnemonicParsing="false" onAction="#onMessageStatsButton" text="Message stats" />
+          <Button fx:id="loadView" mnemonicParsing="false" onAction="#onLoadFileViewButton" text="Load file" />
+            <Button fx:id="messageStats" mnemonicParsing="false" onAction="#onMessageStatsButton" text="Message stats" />
+            <Button fx:id="activityStats" mnemonicParsing="false" onAction="#onActivityStatsButton" text="Activity stats" />
+            <Button fx:id="actions" mnemonicParsing="false" onAction="#onActionsChartButton" text="Actions chart" />
         </items>
       </ToolBar>
    </top>

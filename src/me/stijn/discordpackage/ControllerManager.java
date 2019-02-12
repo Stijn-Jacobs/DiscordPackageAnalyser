@@ -2,34 +2,73 @@ package me.stijn.discordpackage;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import me.stijn.discordpackage.controllers.ActionsChartController;
+import me.stijn.discordpackage.controllers.ActivityStatsController;
 import me.stijn.discordpackage.controllers.FileSelectionController;
 import me.stijn.discordpackage.controllers.MessageStatsController;
 import me.stijn.discordpackage.controllers.ParentView;
 
+/**
+ * ControllerManager stores all the controllers and creates them if they don't exist yet.
+ * @author Stijn
+ */
 public class ControllerManager {
 
-	public static HashMap<String, Pane> map = new HashMap<String, Pane>();
+	public static Map<String, Pane> map = new HashMap<>(); //map which contains all the controllers
 
+	/**
+	 * Get the FileSelection page controller
+	 * @return FileSelection page controller
+	 */
 	public static FileSelectionController getFileSelectionController() {
 		if (map.containsKey("FileSelection"))
 			return (FileSelectionController) map.get("FileSelection");
 		return (FileSelectionController) addController("FileSelection");
 	}
 
+	/**
+	 * Get the Parent controller
+	 * @return Parent controller
+	 */
 	public static ParentView getParentController() {
 		if (map.containsKey("ParentView"))
 			return (ParentView) map.get("ParentView");
 		return (ParentView) addController("ParentView");
 	}
 	
+	/**
+	 * Get the messagestats controller
+	 * @return Messagestats controller
+	 */
 	public static MessageStatsController getMessageStatsController() {
 		if (map.containsKey("MessageStats"))
 			return (MessageStatsController) map.get("MessageStats");
 		return (MessageStatsController) addController("MessageStats");
+	}
+	
+	/**
+	 * Get the activitystats controller
+	 * @return activitystats controller
+	 */
+	public static ActivityStatsController getActivityStatsController() {
+		if (map.containsKey("ActivityStats"))
+			return (ActivityStatsController) map.get("ActivityStats");
+		return (ActivityStatsController) addController("ActivityStats");
+	}
+	
+	/**
+	 * Get the Actioncharts page controller
+	 * @return Actioncharts page controller
+	 */
+	public static ActionsChartController getActionsChartController() {
+		if (map.containsKey("ActionsChart"))
+			return (ActionsChartController) map.get("ActionsChart");
+		return (ActionsChartController) addController("ActionsChart");
 	}
 	
 	

@@ -1,14 +1,12 @@
 package me.stijn.discordpackage;
 
-import java.net.URL;
-
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import me.stijn.discordpackage.controllers.ParentView;
 
 public class Main extends Application{
 	
@@ -30,18 +28,12 @@ public class Main extends Application{
 		  stage.setScene(sc);
 	      GUIManager.switchView("FileSelection");
 	      stage.show();
-
 	}
 
 	public static void main(String[] args) {
 		Application.launch();
-		//DataAnalyser.analyseMessages();
 	}
 	
-//	public static void debug(String msg) {
-//		System.out.println(msg);
-//	}
-
 	public static BorderPane getMainPane() {
 		return main;
 	}

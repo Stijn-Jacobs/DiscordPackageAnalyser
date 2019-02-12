@@ -1,4 +1,4 @@
-package me.stijn.discordpackage;
+package me.stijn.discordpackage.analyse;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import org.apache.commons.csv.CSVFormat;
@@ -24,7 +25,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
-import javafx.scene.chart.XYChart;
+import javafx.application.Platform;
+import me.stijn.discordpackage.ControllerManager;
+import me.stijn.discordpackage.Main;
+import me.stijn.discordpackage.TimeUtils;
+import me.stijn.discordpackage.Utils;
 import me.stijn.discordpackage.objects.Channel;
 import me.stijn.discordpackage.objects.ChatHistory;
 import me.stijn.discordpackage.objects.Message;
@@ -33,7 +38,7 @@ import me.stijn.discordpackage.objects.tableview.MostUsedWordEntry;
 
 public class MessageAnalyser {
 
-	public ArrayList<ChatHistory> chats = new ArrayList<ChatHistory>(); // stores all chat messages //TODO MAYBE REMOVE
+	public List<ChatHistory> chats = new ArrayList<>(); // stores all chat messages
 
 	public void loadMostUsedWord() throws IOException {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
@@ -57,18 +62,23 @@ public class MessageAnalyser {
 				}
 			}
 		}
-		ArrayList<MostUsedWordEntry> list = new ArrayList<MostUsedWordEntry>();
+		List<MostUsedWordEntry> list = new ArrayList<>();
 
 		for (String s : map.keySet()) {
 			if (map.get(s) > 5) //only add words with at least 5 uses
 				list.add(new MostUsedWordEntry(s, map.get(s)));
 		}
 
-		ControllerManager.getMessageStatsController().setMostUsedWords(list);
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				ControllerManager.getMessageStatsController().setMostUsedWords(list);
+			}
+		});
 	}
 
-	public void loadDayChart(ArrayList<Date> dates) {
-		HashMap<String, Integer> count = new HashMap<String, Integer>();
+	public void loadDayChart(List<Date> dates) {
+		Map<String, Integer> count = new HashMap<>();
 		for (String s : TimeUtils.getTimeInADay(10)) { // fill temp hashmap
 			count.put(s, 0);
 		}
@@ -79,16 +89,25 @@ public class MessageAnalyser {
 		}
 		dates.clear();
 
-		XYChart.Series series = new XYChart.Series();
-		for (String d : count.keySet()) {
-			series.getData().add(new XYChart.Data(d, count.get(d)));
-		}
-		ControllerManager.getMessageStatsController().setDayChart(series);
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				ControllerManager.getMessageStatsController().setDayChart(Utils.hashmapToSeries(count));
+			}
+		});
 	}
 
-	public ArrayList<Date> loadMostUsedChats(File map) throws ParseException, IOException {
-		ArrayList<Conversation> list = new ArrayList<Conversation>(); // entries of the table view
-		ArrayList<Date> dates = new ArrayList<Date>(); // all the dates of all the messages
+	public List<Date> loadMostUsedChats() throws ParseException, IOException {
+		ControllerManager.getParentController().getMessageStatsButton().setDisable(true);
+		
+		File map = new File(Main.PACKAGE_LOCATION + "\\messages\\");
+		if (!map.isDirectory()) { // if map does not exists
+			ControllerManager.getFileSelectionController().setStatus("NO DISCORD PACKAGE FOUND");
+			return null;
+		}
+		
+		List<Conversation> list = new ArrayList<>(); // entries of the table view
+		List<Date> dates = new ArrayList<>(); // all the dates of all the messages
 
 		GsonBuilder gsonb = new GsonBuilder();
 		Gson gson = gsonb.create();
@@ -120,7 +139,13 @@ public class MessageAnalyser {
 			}
 			chats.add(new ChatHistory(chan, msges)); // add all messages so they can be accessed again for other shit
 		}
-		ControllerManager.getMessageStatsController().setMostUsedChats(list);
+		
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				ControllerManager.getMessageStatsController().setMostUsedChats(list);
+			}
+		});
 		return dates;
 	}
 	

@@ -1,8 +1,6 @@
 package me.stijn.discordpackage.controllers;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -10,12 +8,10 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import me.stijn.discordpackage.DataAnalyser;
 import me.stijn.discordpackage.TimeUtils;
 import me.stijn.discordpackage.objects.tableview.Conversation;
 import me.stijn.discordpackage.objects.tableview.MostUsedWordEntry;
@@ -60,13 +56,13 @@ public class MessageStatsController extends AnchorPane {
 		
 	}
 	
-	public void setMostUsedChats(ArrayList<Conversation> l) {
+	public void setMostUsedChats(List<Conversation> l) {
 		mostusedchats.getItems().setAll(FXCollections.observableArrayList(l));
 		mostSentChannelCount.setSortType(TableColumn.SortType.DESCENDING);
 		mostusedchats.getSortOrder().add(mostSentChannelCount);
 	}
 	
-	public void setMostUsedWords(ArrayList<MostUsedWordEntry> l) {
+	public void setMostUsedWords(List<MostUsedWordEntry> l) {
 		mostUsedWords.getItems().setAll(FXCollections.observableArrayList(l));
 		mostUsedWordsCount.setSortType(TableColumn.SortType.DESCENDING);
 		mostUsedWords.getSortOrder().add(mostUsedWordsCount);
