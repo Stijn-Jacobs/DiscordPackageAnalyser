@@ -21,12 +21,17 @@ public class ParentView extends BorderPane {
 	
 	@FXML
 	private Button actions; //action chart tab
+	
+	@FXML
+	private Button conversationOverviewButton;
+	
 
 	@FXML
 	public void initialize() {
 		messageStats.setDisable(true);
 		activityStats.setDisable(true);
 		actions.setDisable(true);
+		conversationOverviewButton.setDisable(true);
 	}
 
 	public void onLoadFileViewButton() throws IOException {
@@ -45,6 +50,10 @@ public class ParentView extends BorderPane {
 		GUIManager.switchView("ActionsChart");
 	}
 
+	public void onConversationOverviewButton() throws IOException {
+		GUIManager.switchView("ConversationOverview");
+	}
+	
 	public Button getMessageStatsButton() {
 		return messageStats;
 	}
@@ -55,5 +64,9 @@ public class ParentView extends BorderPane {
 	
 	public Button getActionsChartButton() {
 		return actions;
+	}
+	
+	public Button getConversationOverviewButton(){
+		return conversationOverviewButton;
 	}
 }

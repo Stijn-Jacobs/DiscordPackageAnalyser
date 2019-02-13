@@ -18,5 +18,6 @@
         </yAxis>
       </LineChart>
       <PieChart fx:id="clientPie" focusTraversable="true" labelLineLength="10.0" layoutX="463.0" layoutY="286.0" prefHeight="252.0" prefWidth="323.0" title="Client usage" />
+      <PieChart fx:id="osPie" focusTraversable="true" labelLineLength="10.0" layoutX="34.0" layoutY="14.0" prefHeight="317.0" prefWidth="349.0" title="OS usage" />
    </children>
 </AnchorPane>

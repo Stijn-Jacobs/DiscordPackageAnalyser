@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -23,9 +24,12 @@ import org.apache.commons.csv.CSVRecord;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
 import javafx.application.Platform;
+import javafx.scene.chart.PieChart.Data;
 import me.stijn.discordpackage.ControllerManager;
 import me.stijn.discordpackage.Main;
 import me.stijn.discordpackage.TimeUtils;
@@ -101,7 +105,6 @@ public class MessageAnalyser {
 		ControllerManager.getParentController().getMessageStatsButton().setDisable(true);
 		
 		File map = new File(Main.PACKAGE_LOCATION + File.separator + "messages" + File.separator);
-		System.out.println(map);
 		if (!map.isDirectory()) { // if map does not exists
 			return null;
 		}
@@ -111,6 +114,20 @@ public class MessageAnalyser {
 
 		GsonBuilder gsonb = new GsonBuilder();
 		Gson gson = gsonb.create();
+		
+		Map<String, String> index = new HashMap<>();
+
+		
+		for (File f : map.listFiles()) { //find the index file
+			if (!f.getName().contains("index"))
+				continue;
+			JsonParser parser = new JsonParser();
+			JsonObject obj = parser.parse(Files.readAllLines(f.toPath(), Charset.defaultCharset()).get(0)).getAsJsonObject(); //little bit hacky, but it is always the first line ¯\_(ツ)_/¯
+			for (String s : obj.keySet()) {
+				if (obj.get(s) != null && obj.get(s).toString() != null && !obj.get(s).toString().equals("null"))
+					index.put(s, obj.get(s).getAsString());
+			}
+		}
 
 		for (File f : map.listFiles()) {
 			if (f.getName().contains("index")) // skip index.json file
@@ -133,19 +150,40 @@ public class MessageAnalyser {
 			if (msges.size() > 3) { //only add to most used channels when having more than 3 messages
 				if (chan.getGuild() != null && chan.getGuild().getName() != null && chan.getName() != null)
 					list.add(new Conversation(chan.getGuild().getName() + " : " + chan.getName(), msges.size()));
+				else if (index.containsKey(chan.getId() + "")) 
+					list.add(new Conversation(index.get(chan.getId() + ""), msges.size()));
 				else
 					list.add(new Conversation(chan.getId() + "", msges.size()));
 			}
 			chats.add(new ChatHistory(chan, msges)); // add all messages so they can be accessed again for other shit
 		}
+		Map<String, Integer> tempmap = new HashMap<>(); //map for the conversation overview chart
 		
+		for (Conversation conv : list) {
+			tempmap.put(conv.getValue().replaceAll("Direct Message with", ""), conv.getCount());
+		}
+
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
+				Utils.setPieChart(Utils.hashmapToPieChartData(tempmap, 50, 12), ControllerManager.getConversationOverviewController().conversationOverviewPie);
 				ControllerManager.getMessageStatsController().setMostUsedChats(list);
 			}
 		});
 		return dates;
 	}
+	
+	public void loadConversationOverview() {
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

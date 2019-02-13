@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import me.stijn.discordpackage.controllers.ActionsChartController;
 import me.stijn.discordpackage.controllers.ActivityStatsController;
+import me.stijn.discordpackage.controllers.ConversationOverviewController;
 import me.stijn.discordpackage.controllers.FileSelectionController;
 import me.stijn.discordpackage.controllers.MessageStatsController;
 import me.stijn.discordpackage.controllers.ParentView;
@@ -69,6 +70,16 @@ public class ControllerManager {
 		if (map.containsKey("ActionsChart"))
 			return (ActionsChartController) map.get("ActionsChart");
 		return (ActionsChartController) addController("ActionsChart");
+	}
+	
+	/**
+	 * Get the Conversation overview page controller
+	 * @return Conversation overview page controller
+	 */
+	public static ConversationOverviewController getConversationOverviewController() {
+		if (map.containsKey("ConversationOverview"))
+			return (ConversationOverviewController) map.get("ConversationOverview");
+		return (ConversationOverviewController) addController("ConversationOverview");
 	}
 	
 	

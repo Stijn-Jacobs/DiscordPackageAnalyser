@@ -5,6 +5,7 @@ import java.util.Date;
 public class ReportingEntry {
 	
 	public String city,ip,browser,os,device,event_type;
+	Date timestamp;
 	
 	public String getEvent_type() {
 		return event_type;
@@ -12,8 +13,6 @@ public class ReportingEntry {
 	public void setEvent_type(String event_type) {
 		this.event_type = event_type;
 	}
-	Date timestamp;
-	
 	public String getCity() {
 		return city;
 	}

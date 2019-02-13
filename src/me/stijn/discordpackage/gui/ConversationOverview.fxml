@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="540.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="me.stijn.discordpackage.controllers.ConversationOverviewController">
+   <children>
+      <PieChart fx:id="conversationOverviewPie" layoutX="6.0" prefHeight="559.0" prefWidth="792.0" title="Top conversation overview" />
+   </children>
+</AnchorPane>

@@ -10,7 +10,7 @@
 <AnchorPane fx:id="pane" prefHeight="540.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.stijn.discordpackage.controllers.MessageStatsController">
    <children>
       <FlowPane prefHeight="200.0" prefWidth="200.0" />
-      <TableView fx:id="mostusedchats" focusTraversable="false" layoutX="14.0" layoutY="4.0" prefHeight="278.0" prefWidth="373.0">
+      <TableView fx:id="mostusedchats" focusTraversable="false" layoutX="14.0" layoutY="4.0" prefHeight="268.0" prefWidth="380.0">
         <columns>
           <TableColumn fx:id="mostSentChannelSender" editable="false" prefWidth="212.0" sortable="false" text="Channel" />
           <TableColumn fx:id="mostSentChannelCount" editable="false" minWidth="0.0" prefWidth="160.0" sortType="DESCENDING" text="Messages" />
@@ -27,7 +27,7 @@
           <NumberAxis label="Amount of messages" prefHeight="222.0" prefWidth="44.0" side="LEFT" />
         </yAxis>
       </LineChart>
-      <TableView fx:id="mostUsedWords" focusTraversable="false" layoutX="14.0" layoutY="291.0" prefHeight="236.0" prefWidth="373.0">
+      <TableView fx:id="mostUsedWords" focusTraversable="false" layoutX="14.0" layoutY="276.0" prefHeight="257.0" prefWidth="380.0">
         <columns>
           <TableColumn fx:id="mostUsedWordsWord" prefWidth="212.0" text="Word" />
           <TableColumn fx:id="mostUsedWordsCount" prefWidth="159.0" text="Count" />

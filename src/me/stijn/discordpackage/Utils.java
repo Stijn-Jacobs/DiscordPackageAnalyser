@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javafx.beans.binding.Bindings;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
@@ -29,11 +30,23 @@ public class Utils {
 	 * @param treshold The value of the map must be higher then the treshold to be put in the return list.
 	 * @return list of PieChart Data.
 	 */
-	public static List<PieChart.Data> hashmapToPieChartData(Map<String, Integer> map, int treshold){
+	public static List<PieChart.Data> hashmapToPieChartData(Map<String, Integer> map, int treshold, int max){
 		List<PieChart.Data> list = new ArrayList<>();
 		for (String d : map.keySet()) {
-			if (map.get(d) > treshold)
+			if (map.get(d) > treshold) {
 				list.add(new PieChart.Data(d, map.get(d)));
+				if (list.size() - 1 >= max && max != 0) { //remove lowest item if more then max
+					double minlist = Integer.MAX_VALUE;
+					PieChart.Data mindata = null;
+					for (PieChart.Data dat : list) {
+						if (dat.getPieValue() < minlist) {
+							minlist = dat.getPieValue();
+							mindata = dat;
+						}
+					}
+					list.remove(mindata);
+				}
+			}
 		}
 		return list;
 	}
@@ -56,6 +69,16 @@ public class Utils {
 	        }
 	    }
 	    return length;
+	}
+	
+	/**
+	 * Sets the PieChart to given data.
+	 * @param s Data to set
+	 * @param c PieChart to set data to
+	 */
+	public static void setPieChart(List<PieChart.Data> s, PieChart c) {
+		c.getData().setAll(s);
+		c.getData().forEach(data -> data.nameProperty().bind(Bindings.concat(data.getName(), " - ", (int)data.pieValueProperty().get()))); //put the exact value behind the text
 	}
 
 }

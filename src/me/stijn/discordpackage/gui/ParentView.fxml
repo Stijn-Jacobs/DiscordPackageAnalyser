@@ -7,7 +7,7 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="580.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.stijn.discordpackage.controllers.ParentView">
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.stijn.discordpackage.controllers.ParentView">
    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
@@ -15,6 +15,7 @@
             <Button fx:id="messageStats" mnemonicParsing="false" onAction="#onMessageStatsButton" text="Message stats" />
             <Button fx:id="activityStats" mnemonicParsing="false" onAction="#onActivityStatsButton" text="Activity stats" />
             <Button fx:id="actions" mnemonicParsing="false" onAction="#onActionsChartButton" text="Actions chart" />
+            <Button fx:id="conversationOverviewButton" mnemonicParsing="false" onAction="#onConversationOverviewButton" text="Conversation overview" />
         </items>
       </ToolBar>
    </top>

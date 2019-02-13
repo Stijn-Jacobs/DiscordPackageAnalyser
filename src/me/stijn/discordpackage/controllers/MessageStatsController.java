@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -40,7 +41,7 @@ public class MessageStatsController extends AnchorPane {
 	public TableColumn<MostUsedWordEntry, String> mostUsedWordsWord;
 
 	@FXML
-	public TableColumn<MostUsedWordEntry, Integer> mostUsedWordsCount;;
+	public TableColumn<MostUsedWordEntry, Integer> mostUsedWordsCount;
 	
 	@FXML
 	public void initialize() {

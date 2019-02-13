@@ -10,8 +10,7 @@ import java.util.List;
 import me.stijn.discordpackage.ControllerManager;
 import me.stijn.discordpackage.Main;
 import me.stijn.discordpackage.Utils;
-import me.stijn.discordpackage.controllers.ActionsChartController;
-import me.stijn.discordpackage.controllers.ActivityStatsController;
+import me.stijn.discordpackage.controllers.ParentView;
 import me.stijn.discordpackage.objects.activity.ReportingEntry;
 
 public class DataAnalyser {
@@ -38,16 +37,16 @@ public class DataAnalyser {
 						return;
 					msganalyser.loadDayChart(dates);
 					msganalyser.loadMostUsedWord();
+					msganalyser.loadConversationOverview();
 
 					// activity analyse
 					ActivityAnalyser activityanalyser = new ActivityAnalyser();
 					activityanalyser.loadReportings();
 					activityanalyser.loadDayChart();
-					activityanalyser.loadPie(ControllerManager.getActivityStatsController(), ReportingEntry.class.getMethod("getBrowser"), //Type of client chart
-							ActivityStatsController.class.getMethod("setClientPieChart", List.class), 10);
-					activityanalyser.loadPie(ControllerManager.getActionsChartController(), ReportingEntry.class.getMethod("getEvent_type"), //Action chart page
-							ActionsChartController.class.getMethod("setActionPieChart", List.class), 50);
-
+					activityanalyser.loadPie(ReportingEntry.class.getMethod("getBrowser"), 10, ControllerManager.getActivityStatsController().clientPie); //client chart
+					activityanalyser.loadPie(ReportingEntry.class.getMethod("getOs"), 0, ControllerManager.getActivityStatsController().osPie); //Os usage chart
+					activityanalyser.loadPie(ReportingEntry.class.getMethod("getEvent_type"), 50, ControllerManager.getActionsChartController().actionsPie); //Action chart page
+					
 				} catch (IOException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | ParseException e) {
 					e.printStackTrace();
 				}
@@ -57,9 +56,12 @@ public class DataAnalyser {
 		thrd.join();
 
 		ControllerManager.getFileSelectionController().setStatus("LOADED DATA");
-		ControllerManager.getParentController().getMessageStatsButton().setDisable(false);
-		ControllerManager.getParentController().getActivityStatsButton().setDisable(false);
-		ControllerManager.getParentController().getActionsChartButton().setDisable(false);
+		
+		ParentView contr = ControllerManager.getParentController();
+		contr.getMessageStatsButton().setDisable(false);
+		contr.getActivityStatsButton().setDisable(false);
+		contr.getActionsChartButton().setDisable(false);
+		contr.getConversationOverviewButton().setDisable(false);
 		return true;
 	}
 
