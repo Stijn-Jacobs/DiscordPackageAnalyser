@@ -27,9 +27,9 @@ import me.stijn.discordpackage.objects.activity.ReportingEntry;
 
 public class ActivityAnalyser {
 	
-	private static List<ReportingEntry> entries = new ArrayList<ReportingEntry>(); //all the entry objects imported from the json files
+	private List<ReportingEntry> entries = new ArrayList<ReportingEntry>(); //all the entry objects imported from the json files
 	
-	public static void loadReportings() throws FileNotFoundException, IOException {
+	public void loadReportings() throws FileNotFoundException, IOException {
 		entries.clear();
 		ControllerManager.getParentController().getActivityStatsButton().setDisable(true);
 		ControllerManager.getParentController().getActionsChartButton().setDisable(true);
@@ -56,7 +56,7 @@ public class ActivityAnalyser {
 	}
 	
 	
-	public static void loadDayChart() {
+	public void loadDayChart() {
 		if (entries == null) 
 			return;
 		
@@ -88,7 +88,7 @@ public class ActivityAnalyser {
 	 * @throws IllegalArgumentException
 	 * @throws InvocationTargetException
 	 */
-	public static void loadPie(Pane controller, Method datatype, Method chart, int threshold) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void loadPie(Pane controller, Method datatype, Method chart, int threshold) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		Map<String, Integer> map = new HashMap<>();
 		for (ReportingEntry entry : entries) {
 			if (datatype.invoke(entry) == null)
