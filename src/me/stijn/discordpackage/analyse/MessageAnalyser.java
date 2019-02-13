@@ -29,6 +29,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
 import javafx.application.Platform;
+import javafx.scene.chart.XYChart;
 import javafx.scene.chart.PieChart.Data;
 import me.stijn.discordpackage.ControllerManager;
 import me.stijn.discordpackage.Main;
@@ -96,14 +97,13 @@ public class MessageAnalyser {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
+				ControllerManager.getActivityStatsController().setDayChart(new XYChart.Series<>()); //set other char to empty, otherwise this sometimes caused issues. Think this is a bugg of some kind
 				ControllerManager.getMessageStatsController().setDayChart(Utils.hashmapToSeries(count));
 			}
 		});
 	}
 
 	public List<Date> loadMostUsedChats() throws ParseException, IOException {
-		ControllerManager.getParentController().getMessageStatsButton().setDisable(true);
-		
 		File map = new File(Main.PACKAGE_LOCATION + File.separator + "messages" + File.separator);
 		if (!map.isDirectory()) { // if map does not exists
 			return null;
@@ -173,16 +173,9 @@ public class MessageAnalyser {
 		return dates;
 	}
 	
-	public void loadConversationOverview() {
-		
+	public void clear() {
+		chats.clear();
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

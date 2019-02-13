@@ -17,7 +17,7 @@
           <NumberAxis label="Amount of actions" prefHeight="213.0" prefWidth="52.0" side="LEFT" />
         </yAxis>
       </LineChart>
-      <PieChart fx:id="clientPie" focusTraversable="true" labelLineLength="10.0" layoutX="463.0" layoutY="286.0" prefHeight="252.0" prefWidth="323.0" title="Client usage" />
+      <PieChart fx:id="clientPie" focusTraversable="true" labelLineLength="10.0" layoutX="424.0" layoutY="274.0" prefHeight="264.0" prefWidth="362.0" title="Client usage" />
       <PieChart fx:id="osPie" focusTraversable="true" labelLineLength="10.0" layoutX="34.0" layoutY="14.0" prefHeight="317.0" prefWidth="349.0" title="OS usage" />
    </children>
 </AnchorPane>

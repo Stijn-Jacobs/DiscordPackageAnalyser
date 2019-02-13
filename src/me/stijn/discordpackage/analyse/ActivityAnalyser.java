@@ -19,7 +19,9 @@ import com.google.gson.GsonBuilder;
 
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Pane;
 import me.stijn.discordpackage.ControllerManager;
 import me.stijn.discordpackage.Main;
@@ -33,8 +35,6 @@ public class ActivityAnalyser {
 
 	public void loadReportings() throws FileNotFoundException, IOException {
 		entries.clear();
-		ControllerManager.getParentController().getActivityStatsButton().setDisable(true);
-		ControllerManager.getParentController().getActionsChartButton().setDisable(true);
 
 		File map = new File(Main.PACKAGE_LOCATION + File.separator + "activity" + File.separator + "reporting" + File.separator);
 		if (!map.isDirectory()) { // if map does not exists
@@ -60,7 +60,7 @@ public class ActivityAnalyser {
 	public void loadDayChart() {
 		if (entries == null)
 			return;
-
+		
 		Map<String, Integer> count = new HashMap<>();
 		for (String s : TimeUtils.getTimeInADay(10)) // fill temp hashmap
 			count.put(s, 0);
@@ -74,6 +74,7 @@ public class ActivityAnalyser {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
+
 				ControllerManager.getActivityStatsController().setDayChart(Utils.hashmapToSeries(count));
 			}
 		});
@@ -107,5 +108,10 @@ public class ActivityAnalyser {
 			}
 		});
 	}
+	
+	public void clear() {
+		entries.clear();
+	}
+	
 
 }

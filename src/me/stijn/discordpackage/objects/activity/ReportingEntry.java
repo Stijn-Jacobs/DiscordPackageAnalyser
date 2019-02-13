@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ReportingEntry {
 	
-	public String city,ip,browser,os,device,event_type;
+	public String city,browser,os,event_type; //ip device
 	Date timestamp;
 	
 	public String getEvent_type() {
@@ -19,12 +19,12 @@ public class ReportingEntry {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public String getIp() {
-		return ip;
-	}
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
+//	public String getIp() {
+//		return ip;
+//	}
+//	public void setIp(String ip) {
+//		this.ip = ip;
+//	}
 	public String getBrowser() {
 		return browser;
 	}
@@ -37,12 +37,12 @@ public class ReportingEntry {
 	public void setOs(String os) {
 		this.os = os;
 	}
-	public String getDevice() {
-		return device;
-	}
-	public void setDevice(String device) {
-		this.device = device;
-	}
+//	public String getDevice() {
+//		return device;
+//	}
+//	public void setDevice(String device) {
+//		this.device = device;
+//	}
 	public Date getTimestamp() {
 		return timestamp;
 	}
