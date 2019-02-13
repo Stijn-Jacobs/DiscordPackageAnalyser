@@ -1,5 +1,6 @@
 package me.stijn.discordpackage;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +37,26 @@ public class Utils {
 				list.add(new PieChart.Data(d, map.get(d)));
 		}
 		return list;
+	}
+	
+	/**
+	 * Gets the size of a folder
+	 * @param folder Folder
+	 * @return size of the folder
+	 */
+	public static long getFolderSize(File folder) {
+	    long length = 0;
+	    File[] files = folder.listFiles();
+	    int count = files.length;
+	    for (int i = 0; i < count; i++) {
+	        if (files[i].isFile()) {
+	            length += files[i].length();
+	        }
+	        else {
+	            length += getFolderSize(files[i]);
+	        }
+	    }
+	    return length;
 	}
 
 }

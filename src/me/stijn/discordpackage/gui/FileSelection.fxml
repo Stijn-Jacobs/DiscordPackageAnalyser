@@ -9,12 +9,12 @@
 
 <AnchorPane prefHeight="540.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.stijn.discordpackage.controllers.FileSelectionController">
    <children>
-      <Button fx:id="load" layoutX="344.0" layoutY="457.0" mnemonicParsing="false" onAction="#onLoadButton" prefHeight="39.0" prefWidth="113.0" text="Load">
+      <Button layoutX="344.0" layoutY="457.0" mnemonicParsing="false" onAction="#onLoadButton" prefHeight="39.0" prefWidth="113.0" text="Load">
          <font>
             <Font name="Bebas" size="16.0" />
          </font>
       </Button>
-      <Button fx:id="openfile" layoutX="320.0" layoutY="87.0" mnemonicParsing="false" onAction="#onFileOpenButton" prefHeight="66.0" prefWidth="160.0" text="Open   file">
+      <Button layoutX="320.0" layoutY="87.0" mnemonicParsing="false" onAction="#onFileOpenButton" prefHeight="66.0" prefWidth="160.0" text="Open  file">
          <font>
             <Font name="Bebas" size="28.0" />
          </font>
@@ -27,5 +27,6 @@
       </Label>
       <CheckBox fx:id="useCustomExpletive" layoutX="341.0" layoutY="270.0" mnemonicParsing="false" onAction="#onCustomExpletiveCheck" text="Use expletive filter" />
       <Button fx:id="customExpletiveButton" disable="true" layoutX="324.0" layoutY="296.0" mnemonicParsing="false" onAction="#onCustomExpletiveButton" prefHeight="25.0" prefWidth="153.0" text="Set custom expletive list" />
+      <Label fx:id="filesizeLabel" alignment="CENTER" layoutX="155.0" layoutY="369.0" prefHeight="17.0" prefWidth="492.0" text="Discord keeps: more then mb of plain text data off you." textAlignment="CENTER" textOverrun="CLIP" visible="false" />
    </children>
 </AnchorPane>

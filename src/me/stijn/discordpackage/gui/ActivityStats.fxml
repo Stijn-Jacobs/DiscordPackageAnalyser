@@ -14,7 +14,7 @@
           <CategoryAxis autoRanging="false" endMargin="0.0" gapStartAndEnd="false" side="BOTTOM" startMargin="0.0" tickLabelGap="0.0" tickLabelRotation="-60.0" fx:id="xaxis" />
         </xAxis>
         <yAxis>
-          <NumberAxis label="Amount of logins" prefHeight="222.0" prefWidth="46.0" side="LEFT" />
+          <NumberAxis label="Amount of actions" prefHeight="213.0" prefWidth="52.0" side="LEFT" />
         </yAxis>
       </LineChart>
       <PieChart fx:id="clientPie" focusTraversable="true" labelLineLength="10.0" layoutX="463.0" layoutY="286.0" prefHeight="252.0" prefWidth="323.0" title="Client usage" />

@@ -32,6 +32,9 @@ public class FileSelectionController extends AnchorPane {
 	private CheckBox useCustomExpletive;
 	
 	@FXML
+	private Label filesizeLabel;
+	
+	@FXML
 	public void initialize() {
 		if (Main.PACKAGE_LOCATION != null && Main.PACKAGE_LOCATION != "") {
 			locationurl.setText(Main.PACKAGE_LOCATION);
@@ -76,6 +79,10 @@ public class FileSelectionController extends AnchorPane {
 	public void setStatus(String s) {
 		s = s.replace(" ", "   ");
 		status.setText("Status: " + s);
+	}
+	
+	public Label getFileSizeLabel() {
+		return filesizeLabel;
 	}
 	
 	public File getExpletiveFile() {
