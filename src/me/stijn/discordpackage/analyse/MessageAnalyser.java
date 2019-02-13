@@ -100,9 +100,9 @@ public class MessageAnalyser {
 	public List<Date> loadMostUsedChats() throws ParseException, IOException {
 		ControllerManager.getParentController().getMessageStatsButton().setDisable(true);
 		
-		File map = new File(Main.PACKAGE_LOCATION + "\\messages\\");
+		File map = new File(Main.PACKAGE_LOCATION + File.separator + "messages" + File.separator);
+		System.out.println(map);
 		if (!map.isDirectory()) { // if map does not exists
-			ControllerManager.getFileSelectionController().setStatus("NO DISCORD PACKAGE FOUND");
 			return null;
 		}
 		
@@ -115,9 +115,8 @@ public class MessageAnalyser {
 		for (File f : map.listFiles()) {
 			if (f.getName().contains("index")) // skip index.json file
 				continue;
-
 			ArrayList<Message> msges = new ArrayList<Message>();
-			Reader csvreader = Files.newBufferedReader(Paths.get(f.getAbsolutePath() + "\\messages.csv"));
+			Reader csvreader = Files.newBufferedReader(Paths.get(f.getAbsolutePath() + File.separator + "messages.csv"));
 			CSVParser csvParser = new CSVParser(csvreader, CSVFormat.DEFAULT.withFirstRecordAsHeader());
 
 			for (CSVRecord csvRecord : csvParser) {
@@ -129,7 +128,7 @@ public class MessageAnalyser {
 			}
 			csvParser.close();
 
-			JsonReader reader = new JsonReader(new InputStreamReader(new FileInputStream(new File(f.getAbsolutePath() + "\\channel.json")), "UTF-8"));
+			JsonReader reader = new JsonReader(new InputStreamReader(new FileInputStream(new File(f.getAbsolutePath() + File.separator + "channel.json")), "UTF-8"));
 			Channel chan = gson.fromJson(reader, Channel.class);
 			if (msges.size() > 3) { //only add to most used channels when having more than 3 messages
 				if (chan.getGuild() != null && chan.getGuild().getName() != null && chan.getName() != null)

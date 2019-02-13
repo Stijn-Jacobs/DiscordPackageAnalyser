@@ -34,7 +34,7 @@ public class ActivityAnalyser {
 		ControllerManager.getParentController().getActivityStatsButton().setDisable(true);
 		ControllerManager.getParentController().getActionsChartButton().setDisable(true);
 		
-		File map = new File(Main.PACKAGE_LOCATION + "\\activity\\reporting\\");
+		File map = new File(Main.PACKAGE_LOCATION + File.separator + "activity" + File.separator + "reporting" + File.separator);
 		if (!map.isDirectory()) { // if map does not exists
 			ControllerManager.getFileSelectionController().setStatus("NO DISCORD PACKAGE FOUND");
 			return;
