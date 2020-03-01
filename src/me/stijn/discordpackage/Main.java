@@ -29,7 +29,7 @@ public class Main extends Application{
 	      GUIManager.switchView("FileSelection");
 	      stage.show();
 	}
-
+	
 	public static void main(String[] args) {
 		Application.launch();
 	}

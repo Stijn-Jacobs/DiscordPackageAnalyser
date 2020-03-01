@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="540.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.stijn.discordpackage.controllers.FileSelectionController">
    <children>
-      <Button layoutX="344.0" layoutY="457.0" mnemonicParsing="false" onAction="#onLoadButton" prefHeight="39.0" prefWidth="113.0" text="Load">
+      <Button id="loadbutton" layoutX="344.0" layoutY="457.0" mnemonicParsing="false" onAction="#onLoadButton" prefHeight="39.0" prefWidth="113.0" text="Load">
          <font>
             <Font name="Bebas" size="16.0" />
          </font>
@@ -20,7 +20,7 @@
          </font>
       </Button>
       <TextField fx:id="locationurl" editable="false" layoutX="218.0" layoutY="181.0" prefHeight="25.0" prefWidth="365.0" promptText="Location" />
-      <Label fx:id="status" alignment="CENTER" contentDisplay="CENTER" layoutX="206.0" layoutY="414.0" prefHeight="13.0" prefWidth="388.0" text="Status: Not started" textAlignment="CENTER">
+      <Label id="status" fx:id="status" alignment="CENTER" contentDisplay="CENTER" layoutX="206.0" layoutY="414.0" prefHeight="13.0" prefWidth="388.0" text="Status: Not started" textAlignment="CENTER">
          <font>
             <Font name="Bebas" size="12.0" />
          </font>

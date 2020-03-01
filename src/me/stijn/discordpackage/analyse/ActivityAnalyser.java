@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,7 +51,8 @@ public class ActivityAnalyser {
 			try (BufferedReader br = Files.newBufferedReader(f.toPath())) {
 				String line;
 				while ((line = br.readLine()) != null) {
-					ReportingEntry message = gson.fromJson(line, ReportingEntry.class);
+					//System.out.println("line: " + line.replaceAll("\\\\", "").replaceAll("\"\"", "\""));
+					ReportingEntry message = gson.fromJson(line.replaceAll("\\\\", "").replaceAll("\"\"", "\""), ReportingEntry.class);
 					entries.add(message);
 				}
 			}
