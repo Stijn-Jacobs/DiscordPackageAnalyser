@@ -51,8 +51,7 @@ public class ActivityAnalyser {
 			try (BufferedReader br = Files.newBufferedReader(f.toPath())) {
 				String line;
 				while ((line = br.readLine()) != null) {
-					//System.out.println("line: " + line.replaceAll("\\\\", "").replaceAll("\"\"", "\""));
-					ReportingEntry message = gson.fromJson(line.replaceAll("\\\\", "").replaceAll("\"\"", "\""), ReportingEntry.class);
+					ReportingEntry message = gson.fromJson(line.replaceAll("\\\\", "").replaceAll("\"\"", "\"").replace("[\"]", "[]"), ReportingEntry.class);
 					entries.add(message);
 				}
 			}
